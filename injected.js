@@ -89,11 +89,11 @@
             localStorage.setItem('filtersModalOpen', isVisible ? 'true' : 'false');
             
             // Отправляем событие
-            chrome.runtime.sendMessage({
-              action: 'modalStateChange',
-              isOpen: isVisible,
-              timestamp: Date.now()
-            });
+            // chrome.runtime.sendMessage({
+            //   action: 'modalStateChange',
+            //   isOpen: isVisible,
+            //   timestamp: Date.now()
+            // });
           }
         }
       });
