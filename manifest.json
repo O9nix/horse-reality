@@ -1,18 +1,27 @@
 {
   "manifest_version": 3,
-  "name": "jQuery Interceptor",
+  "name": "HorseReality Tracker",
   "version": "1.0",
+  "description": "Отслеживание действий на horsereality.com",
+  
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://v2.horsereality.com/*"],
       "js": ["content.js"],
       "run_at": "document_start"
     }
   ],
+  
   "web_accessible_resources": [
     {
       "resources": ["injected.js"],
-      "matches": ["<all_urls>"]
+      "matches": ["https://v2.horsereality.com/*"]
     }
+  ],
+  
+  "permissions": ["storage"],
+  
+  "host_permissions": [
+    "https://v2.horsereality.com/*"
   ]
 }
