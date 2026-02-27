@@ -1,7 +1,53 @@
+// Перехват добавления внешних скриптов
+(function() {
+  const BLOCKED_URL = 'rawgit.com/notifyjs/notifyjs/master/dist/notify.js';
+  
+  // Перехват document.createElement('script')
+  const originalCreateElement = document.createElement;
+  document.createElement = function(tagName) {
+    const element = originalCreateElement.call(document, tagName);
+    
+    if (tagName.toLowerCase() === 'script') {
+      // Перехватчик для свойства src
+      Object.defineProperty(element, 'src', {
+        set: function(value) {
+          if (value && value.includes(BLOCKED_URL)) {
+            console.log('🚫 Blocked script load:', value);
+            // Не устанавливаем src, предотвращая загрузку
+            return; 
+          }
+          // Для всех остальных URL работаем как обычно
+          this.setAttribute('src', value);
+        },
+        get: function() {
+          return this.getAttribute('src');
+        }
+      });
+    }
+    return element;
+  };
+
+  // Перехват document.write (на всякий случай, если сайт использует его)
+  const originalWrite = document.write;
+  document.write = function(html) {
+    if (typeof html === 'string' && html.includes(BLOCKED_URL)) {
+      console.log('🚫 Blocked document.write:', html);
+      return;
+    }
+    return originalWrite.apply(document, arguments);
+  };
+})();
 (function() {
   'use strict';
   console.log('🔧 Filters Extension injected');
-
+try {
+      let list =[... document.querySelectorAll('.job-progress')]
+      list.forEach(item=>{
+        item.style.border = '2px solid black'
+      })
+    } catch (error) {
+      
+    }
   // === Ждём jQuery ===
   function waitForjQuery(callback) {
     if (typeof window.jQuery !== 'undefined') {

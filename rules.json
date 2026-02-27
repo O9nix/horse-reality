@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "||rawgit.com/notifyjs/notifyjs/master/dist/notify.js",
+      "resourceTypes": ["script", "xmlhttprequest", "other"]
+    }
+  }
+]
